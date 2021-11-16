@@ -3,9 +3,9 @@ import React from 'react';
 
 async function getPokemons(){
     const pokemons = await axios.get(`http://pokeapi.co/api/v2/pokemon/?limit=898`)
-    console.log(pokemons)
+    /* console.log(pokemons) */
     const pokemonPagination = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=10&offset=20`)
-    console.log(pokemonPagination)
+    /* console.log(pokemonPagination) */
 }
 
 getPokemons()

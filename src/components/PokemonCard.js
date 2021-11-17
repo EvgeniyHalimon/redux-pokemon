@@ -1,18 +1,15 @@
-import axios from 'axios';
 import React from 'react';
+import { fetchPokemons } from '../utils/FetchPokemons';
 
-async function getPokemons(){
-    const pokemons = await axios.get(`http://pokeapi.co/api/v2/pokemon/?limit=898`)
-    /* console.log(pokemons) */
-    const pokemonPagination = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=10&offset=20`)
-    /* console.log(pokemonPagination) */
-}
+const url = `http://pokeapi.co/api/v2/pokemon/?limit=898`
+const url1 = `https://pokeapi.co/api/v2/pokemon/?limit=10&offset=0`
 
-getPokemons()
+
+
 
 function PokemonCard(){
     return(
-        <h1>CAR</h1>
+        <h1>CARD</h1>
     )
 }
 

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { fetchPokemons, paginationPokemon } from '../utils/FetchPokemons';
 import shortid from 'shortid'
+import {ListGroup, ListGroupItem} from 'react-bootstrap'
 
 const url = `http://pokeapi.co/api/v2/pokemon/?limit=898`
 const url1 = `https://pokeapi.co/api/v2/pokemon/?limit=10&offset=0`

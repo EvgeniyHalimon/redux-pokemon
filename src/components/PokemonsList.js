@@ -9,10 +9,7 @@ async function getPokemons(){
     const one = await fetchPokemons(`https://pokeapi.co/api/v2/pokemon/1`)
 }
 
-
-
 getPokemons()
-
 
 function PokemonsList(){
     return <ul>LIST</ul>

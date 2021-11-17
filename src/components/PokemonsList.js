@@ -6,9 +6,7 @@ const url1 = `https://pokeapi.co/api/v2/pokemon/?limit=10&offset=0`
 
 async function getPokemons(){
     const pokemon = await paginationPokemon(10, 0)
-    console.log(pokemon)
     const one = await fetchPokemons(`https://pokeapi.co/api/v2/pokemon/1`)
-    console.log(one)
 }
 
 

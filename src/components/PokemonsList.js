@@ -13,14 +13,14 @@ const url1 = `https://pokeapi.co/api/v2/pokemon/?limit=10&offset=0`
 function PokemonsList(){
     const [pokemons, setPokemons] = useState([])
 
-    async function getPokemons(){
+    async function fetchPokemons(){
         const pokemonsList = await paginationPokemon(18, 0)
         setPokemons(pokemonsList.data.results)
     }
     
     
     useEffect(() => {
-        getPokemons()
+        fetchPokemons()
     }, []);
 
     return(

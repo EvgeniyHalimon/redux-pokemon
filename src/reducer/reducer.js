@@ -1,21 +1,22 @@
 const initialState ={
-    pokemon : '',
+    pokemon : null,
     pokemonData : {},
     isShow : false,
     pokemonsList : []
 }
 
 const reducer = (state = initialState, action) => {
-    console.log(action.type)
+    console.log('~TYPE OF ACTION~', action.type)
     switch (action.type){
     case 'FIND_POKEMON':
         return {
+            ...state,
             pokemon : action.payload,
             isShow : true
         }
     case 'SET_POKEMON':
         return {
-            pokemon: state.pokemon,
+            ...state,
             pokemonData : action.payload,
             isShow : true
         }

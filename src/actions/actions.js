@@ -19,10 +19,16 @@ const isShow = (bool) => {
     }
 }
 
-
+const getPokemons = (data) => {
+    return{
+        type : 'GET_POKEMONS',
+        payload: data
+    }
+}
 
 export{
     findPokemon,
     setPokemon,
-    isShow
+    isShow,
+    getPokemons
 }

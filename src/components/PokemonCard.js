@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import { fetchPokemons } from '../utils/FetchPokemons';
-import {Card, Container, ListGroup, Table} from 'react-bootstrap'
+import {Card, Container, ListGroup} from 'react-bootstrap'
 import { useParams } from 'react-router';
 import shortid from 'shortid';
 import { connect } from 'react-redux';
@@ -14,10 +14,7 @@ const url1 = `https://pokeapi.co/api/v2/pokemon/?limit=10&offset=0`
 
 
 function PokemonCard(){
-
-    
     let { number } = useParams()
-
     const dispatch = useDispatch()
     const show = useSelector(state => state.isShow) 
     const pokemon = useSelector(state => state.pokemonData)
@@ -26,13 +23,10 @@ function PokemonCard(){
         const pokemonItem = await fetchPokemons(`https://pokeapi.co/api/v2/pokemon/${number}`)
         console.log('FETCH CURRENT POKE', pokemonItem.data)
 
-        dispatch(setPokemon(pokemonItem.data))
-        console.log('before', show)
+        /* dispatch(setPokemon(pokemonItem.data)) */
+        dispatch(setPokemon(pokemonItem.data), isShow(true))
 
-        dispatch(isShow(true))
-
-        console.log('after', show)
-        console.log('i hate redux',pokemon)
+        console.log('WHATS IN THE BOX',pokemon)
     }
 
     useEffect(() => {

@@ -1,9 +1,18 @@
-const reducer = (state = 0, action) => {
+const initialState ={
+    pokemon : '',
+    pokemonArr : []
+}
+
+const reducer = (state = initialState, action) => {
     switch (action.type){
-    case 'INC':
-        return state + 1
-    case 'DEC':
-        return state - 1  
+    case 'FIND_POKEMON':
+        return {
+            pokemon : action.payload
+        }
+    case 'FETCH_POKEMONS':
+        return {
+            pokemonArr : action.payload
+        }
     default:
         return state
     }

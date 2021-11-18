@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Container, InputGroup, Alert, Button, Form } from 'react-bootstrap';
 import {DebounceInput} from 'react-debounce-input'
+import { useDispatch, useSelector } from 'react-redux';
+import { findPokemon } from '../actions/actions';
 import { fetchPokemons } from '../utils/FetchPokemons';
 
 
@@ -8,23 +10,25 @@ import { fetchPokemons } from '../utils/FetchPokemons';
 
 function PokemonForm(){
     
-    const [pokemon, setPokemon] = useState('')
-
+    const dispatch = useDispatch()
+    const pokemonValue = useSelector(state => state.pokemon)
+    
     const handleSubmit = async(e) => {
         e.preventDefault()
-        const poke = await fetchPokemons(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
-        console.log('FETCH CURRENT POKE', poke)
+        const poke = await fetchPokemons(`https://pokeapi.co/api/v2/pokemon/${pokemonValue}`)
+        console.log(poke)
     }
+
     return(
         <Form onSubmit={handleSubmit}>
             <InputGroup>
                 <DebounceInput
                     className='form-control'
                     debounceTimeout={3000}
-                    value={pokemon}
+                    value={pokemonValue}
                     type='text'
                     required
-                    onChange={(e) => setPokemon(e.target.value)}
+                    onChange={(e) => dispatch(findPokemon(e.target.value))}
                 />
                 <Button
                     variant='warning'

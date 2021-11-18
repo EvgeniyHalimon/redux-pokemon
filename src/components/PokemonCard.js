@@ -1,8 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import { fetchPokemons } from '../utils/FetchPokemons';
 import {Card, Container, ListGroup, Table} from 'react-bootstrap'
 import { useParams } from 'react-router';
 import shortid from 'shortid';
+import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { isShow, setPokemon } from '../actions/actions';
 
 const url = `http://pokeapi.co/api/v2/pokemon/?limit=898`
 const url1 = `https://pokeapi.co/api/v2/pokemon/?limit=10&offset=0`
@@ -12,26 +15,33 @@ const url1 = `https://pokeapi.co/api/v2/pokemon/?limit=10&offset=0`
 
 function PokemonCard(){
 
-    const [pokemon, setPokemon] = useState([])
-    const [isShow, setIsShow] = useState(false)
+    
     let { number } = useParams()
+
+    const dispatch = useDispatch()
+    const show = useSelector(state => state.isShow) 
+    const pokemon = useSelector(state => state.pokemonData)
 
     const handleFetch = async (number) => {
         const pokemonItem = await fetchPokemons(`https://pokeapi.co/api/v2/pokemon/${number}`)
         console.log('FETCH CURRENT POKE', pokemonItem.data)
-        setPokemon(pokemonItem.data)
-        setIsShow(true)
-    }
 
-    console.log(pokemon)
+        dispatch(setPokemon(pokemonItem.data))
+        console.log('before', show)
+
+        dispatch(isShow(true))
+
+        console.log('after', show)
+        console.log('i hate redux',pokemon)
+    }
 
     useEffect(() => {
         handleFetch(number)
-    }, []);
+    }, [show]);
 
     return(
         <Container >
-        {isShow ? 
+        {show ? 
         <Card key={shortid.generate()} style={{ width: '18rem', margin : '0 auto' }}>
             <Card.Img 
             style={{margin : '0 auto', width: '60%'}}
@@ -80,4 +90,4 @@ function PokemonCard(){
     )
 }
 
-export default PokemonCard
+export default connect()(PokemonCard)

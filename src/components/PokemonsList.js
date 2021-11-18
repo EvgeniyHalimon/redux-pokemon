@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import { paginationPokemon } from '../utils/FetchPokemons';
 import shortid from 'shortid'
-import {ListGroup, ListGroupItem} from 'react-bootstrap'
+import {Container, ListGroup, ListGroupItem} from 'react-bootstrap'
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PokemonForm from './PokemonForm';
+
 
 const url = `http://pokeapi.co/api/v2/pokemon/?limit=898`
 const url1 = `https://pokeapi.co/api/v2/pokemon/?limit=10&offset=0`
@@ -21,7 +24,9 @@ function PokemonsList(){
     }, []);
 
     return(
-        <ListGroup style={{width : '10%'}}>
+        <Container>
+            <PokemonForm/>
+            <ListGroup style={{width : '10%'}}>
             {pokemons.map((item,index) => (
                 <ListGroupItem key={shortid.generate()}>
                     <Link 
@@ -36,7 +41,9 @@ function PokemonsList(){
                 </ListGroupItem>
             ))}
         </ListGroup>
+        </Container>
+        
     )
 }
 
-export default PokemonsList
+export default connect()(PokemonsList)

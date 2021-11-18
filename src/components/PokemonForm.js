@@ -7,8 +7,6 @@ import { fetchPokemons } from '../utils/FetchPokemons';
 import shortid from 'shortid';
 
 
-
-
 function PokemonForm(){
     
     const dispatch = useDispatch()
@@ -16,28 +14,19 @@ function PokemonForm(){
     const show = useSelector(state => state.isShow)
     const pokemon = useSelector(state => state.pokemonData)
     
-    console.log(pokemonValue)
-
-    const handle = async() => {  
-        
-        const poke = await fetchPokemons(`https://pokeapi.co/api/v2/pokemon/${pokemonValue}`)
-        
-        setTimeout(() => {
-            dispatch(() => setPokemon(poke.data))
-            dispatch(isShow(!show))
-            console.log('Timeout FETCH', poke.data)
-            console.log('Timeout POKEMON', pokemon)
-        }, 5000);
-        console.log('VALUE OF FETCH', poke.data)
-        console.log('WHOS THAT POKEMON', pokemon)
-        console.log(show)
-    }
-
     
 
+    const handle = async() => {  
+        const poke = await fetchPokemons(`https://pokeapi.co/api/v2/pokemon/${pokemonValue}`)
+        dispatch(setPokemon(poke.data))
+        dispatch(isShow(true))
+    }
+
+    console.log('В ИНПУТЕ', pokemonValue)
+    console.log('ПОКЕМОН', pokemon)
+
     useEffect(() => {
-        
-    }, [show]);
+    }, [pokemonValue]);
 
     return(
         <Container>
@@ -48,6 +37,7 @@ function PokemonForm(){
                         value={pokemonValue}
                         type='text'
                         required
+                        placeholder='Enter the number or name of the pokemon'
                         onChange={(e) => dispatch(findPokemon(e.target.value))}
                     />
                     <Button
@@ -58,14 +48,14 @@ function PokemonForm(){
                         Get
                     </Button>
                 </InputGroup>
-            {/*{show ? 
+            {show ? 
         <Card key={shortid.generate()} style={{ width: '18rem', margin : '0 auto' }}>
             <Card.Img 
             style={{margin : '0 auto', width: '60%'}}
             variant="top" 
-            src={pokemon.sprites.front_default} />
+            src={pokemon.sprites.other.dream_world.front_default || pokemon.sprites.front_default} />
             <Card.Title>{pokemon.name}</Card.Title>
-            <Card.Title># {pokemon.order}</Card.Title>
+            <Card.Title># {pokemon.id}</Card.Title>
             <Container style={{display : 'flex', padding : '0'}}>
                     <Container style={{padding: '0', width: '48%'}}>
                         <ListGroup>
@@ -98,13 +88,13 @@ function PokemonForm(){
                                 {item.stat.name} {item.base_stat}
                             </ListGroup.Item>
                         ))}
-                    </ListGroup> 
-            </Container>
+                    </ListGroup>
+                        </Container>
         </Card> : 
-        <h1>oops</h1>
-        } */}
+        <h1>Find your Pokemon</h1>
+        } 
         </Container>
     )
 }
 
-export default connect()(PokemonForm)
+export default PokemonForm

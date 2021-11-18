@@ -1,5 +1,5 @@
 const initialState ={
-    pokemon : null,
+    pokemon : '',
     pokemonData : {},
     isShow : false,
     pokemonsList : []
@@ -11,14 +11,12 @@ const reducer = (state = initialState, action) => {
     case 'FIND_POKEMON':
         return {
             ...state,
-            pokemon : action.payload,
-            isShow : true
+            pokemon : action.payload
         }
     case 'SET_POKEMON':
         return {
             ...state,
-            pokemonData : action.payload,
-            isShow : true
+            pokemonData : action.payload
         }
     case 'IS_SHOW':
         return {
@@ -28,8 +26,7 @@ const reducer = (state = initialState, action) => {
     case 'GET_POKEMONS':
         return{
             ...state,
-            pokemonsList : action.payload,
-            isShow: true
+            pokemonsList : action.payload
         }
     default:
         return state
